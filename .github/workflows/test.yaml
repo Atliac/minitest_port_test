@@ -1,0 +1,30 @@
+on:
+ push:
+  branches:
+   - master
+
+jobs:
+ minitest_port_test:
+  runs-on: windows-latest
+  steps: 
+   - name: Checkout Atliac/vcpkg
+     uses: actions/checkout@v4.1.1
+     with:
+      repository: Atliac/vcpkg
+      ref: minitest
+      path: vcpkg
+   - name: vcpkg bootstrap
+     run: |
+      cd vcpkg
+      .\bootstrap-vcpkg.bat
+      cd ..
+   - name: Set env CMAKE_TOOLCHAIN_FILE
+     run: Set-Item Env:CMAKE_TOOLCHAIN_FILE "$pwd\vcpkg\scripts\buildsystems\vcpkg.cmake"
+   - name: Checkout 
+     uses: actions/checkout@v4.1.1
+   - name: Build
+     run: |
+      cmake -B build -S . -G "Visual Studio 17 2022" -A x64
+      cmake --build build --config Release
+   - name: Test
+     run: ctest --test-dir build --output-on-failure
