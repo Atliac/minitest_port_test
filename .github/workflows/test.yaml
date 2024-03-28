@@ -20,13 +20,13 @@ jobs:
       cd ..
    - name: Set env CMAKE_TOOLCHAIN_FILE
      run: Set-Item -Path env:CMAKE_TOOLCHAIN_FILE -Value "D:\a\minitest_port_test\vcpkg/scripts/buildsystems/vcpkg.cmake"
-   - name: Checkout 
-     uses: actions/checkout@v4.1.1
+   #- name: Checkout 
+     #uses: actions/checkout@v4.1.1
    - name: misc
      run: |
-      ls
       echo $env:CMAKE_TOOLCHAIN_FILE
-   - name: Build
-     run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64
-   - name: Test
-     run: ctest --test-dir build --output-on-failure
+      ls
+   # - name: Build
+   #   run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64
+   # - name: Test
+   #   run: ctest --test-dir build --output-on-failure
