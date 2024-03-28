@@ -15,12 +15,9 @@ jobs:
       path: vcpkg
    - name: vcpkg bootstrap
      run: .\vcpkg\bootstrap-vcpkg.bat
-   - name: Set env CMAKE_TOOLCHAIN_FILE
-     run: |
-      echo "::set-env name=CMAKE_TOOLCHAIN_FILE::$(pwd)/vcpkg/scripts/buildsystems/vcpkg.cmake"
    - name: Checkout 
      uses: actions/checkout@v4.1.1
    - name: Build
-     run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64
+     run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64 -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake
    - name: Test
      run: ctest --test-dir build --output-on-failure
