@@ -15,13 +15,13 @@ jobs:
       path: vcpkg
    - name: vcpkg bootstrap
      run: .\vcpkg\bootstrap-vcpkg.bat
-   - name: pwd
-     run: pwd
+   - name: ls
+     run: ls
    - name: Checkout 
      uses: actions/checkout@v4.1.1
-   - name: pwd2
-     run: pwd
-   # - name: Build
-   #   run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64 "-DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake"
-   # - name: Test
-   #   run: ctest --test-dir build --output-on-failure
+   - name: ls
+     run: ls
+   - name: Build
+     run: cmake -B build -S . -G "Visual Studio 17 2022" -A x64 "-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake"
+   - name: Test
+     run: ctest --test-dir build --output-on-failure
